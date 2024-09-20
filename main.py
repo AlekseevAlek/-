@@ -21,6 +21,9 @@ def main():
 
     dm.calculate_and_display_average_price(stock_data)
 
+    dm.notify_if_strong_fluctuations(stock_data)
+
+
 
 if __name__ == "__main__":
     main()
