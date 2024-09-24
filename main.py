@@ -9,7 +9,7 @@ def main():
 
     ticker = input("Введите тикер акции (например, «AAPL» для Apple Inc):»")
     period = input("Введите период для данных (например, '1mo' для одного месяца): ")
-
+    filename = 'DataF.csv'
     # Fetch stock data
     stock_data = dd.fetch_stock_data(ticker, period)
 
@@ -22,6 +22,8 @@ def main():
     dm.calculate_and_display_average_price(stock_data)
 
     dm.notify_if_strong_fluctuations(stock_data)
+
+    dm.export_data_to_csv(stock_data, filename)
 
 
 
