@@ -1,6 +1,6 @@
 import data_download as dd
 import data_plotting as dplt
-import data_mean as dm
+
 
 def main():
     print("Добро пожаловать в инструмент получения и построения графиков биржевых данных.")
@@ -10,6 +10,7 @@ def main():
     ticker = input("Введите тикер акции (например, «AAPL» для Apple Inc):»")
     period = input("Введите период для данных (например, '1mo' для одного месяца): ")
     filename = 'DataF.csv'
+
     # Fetch stock data
     stock_data = dd.fetch_stock_data(ticker, period)
 
@@ -19,11 +20,13 @@ def main():
     # Plot the data
     dplt.create_and_save_plot(stock_data, ticker, period)
 
-    dm.calculate_and_display_average_price(stock_data)
+    dd.calculate_and_display_average_price(stock_data)
 
-    dm.notify_if_strong_fluctuations(stock_data)
+    dd.notify_if_strong_fluctuations(stock_data)
 
-    dm.export_data_to_csv(stock_data, filename)
+    dd.rsi(stock_data)
+
+    dd.export_data_to_csv(stock_data, filename)
 
 
 
