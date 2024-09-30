@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-
+import numpy as np
 
 def create_and_save_plot(data, ticker, period, filename=None):
     plt.figure(figsize=(10, 6))

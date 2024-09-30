@@ -1,6 +1,6 @@
 import data_download as dd
 import data_plotting as dplt
-
+import pandas as pd
 
 def main():
     print("Добро пожаловать в инструмент получения и построения графиков биржевых данных.")
@@ -10,7 +10,7 @@ def main():
     ticker = input("Введите тикер акции (например, «AAPL» для Apple Inc):»")
     period = input("Введите период для данных (например, '1mo' для одного месяца): ")
     filename = 'DataF.csv'
-
+    indicators = dd.download_and_process_data(ticker, period)
     # Fetch stock data
     stock_data = dd.fetch_stock_data(ticker, period)
 
@@ -18,15 +18,15 @@ def main():
     stock_data = dd.add_moving_average(stock_data)
 
     # Plot the data
-    dplt.create_and_save_plot(stock_data, ticker, period)
+    dplt.create_and_save_plot(stock_data, ticker, period, indicators)
 
     dd.calculate_and_display_average_price(stock_data)
 
     dd.notify_if_strong_fluctuations(stock_data)
 
-    dd.rsi(stock_data)
-
     dd.export_data_to_csv(stock_data, filename)
+
+
 
 
 

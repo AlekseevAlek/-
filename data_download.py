@@ -1,5 +1,5 @@
 import yfinance as yf
-
+import pandas as pd
 
 def fetch_stock_data(ticker, period='1mo'):
     stock = yf.Ticker(ticker)
@@ -33,18 +33,25 @@ def export_data_to_csv(data, filename):
     data = data['Close']
     data.to_csv(filename)
 
-def rsi(data, periods = 12 ):
-    close_delta = data['Close'].diff()
 
-    up = close_delta.clip(lower=0)
-    down = -1 * close_delta.clip(upper=0)
+def add_technical_indicators(data):
+    # Рассчитываем RSI
+    delta = data['Close'].diff()
+    gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
+    loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
 
-    ma_up = up.rolling(window=periods).mean()
-    ma_down = down.rolling(window=periods).mean()
+    rs = gain / loss
+    rsi = 100 - (100 / (1 + rs))
 
-    rs = ma_up / ma_down
-    rsi = 100 - 100 / (1+rs)
-    data['RSI']=rsi
+    # Создаем DataFrame с индикаторами
+    indicators = pd.DataFrame({
+        'RSI': rsi})
 
-    return data
+    # Объединяем исходные данные с индикаторами
+    combined_data = pd.concat([data, indicators], axis=1)
+    return combined_data
 
+def download_and_process_data(ticker, period):
+    data = fetch_stock_data(ticker, period)
+    processed_data = add_technical_indicators(data)
+    return data['Close'], processed_data
