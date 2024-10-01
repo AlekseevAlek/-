@@ -35,23 +35,14 @@ def export_data_to_csv(data, filename):
 
 
 def add_technical_indicators(data):
-    # Рассчитываем RSI
+    '''Функция добавляет дополнительный технический индикатор RSI'''
+
     delta = data['Close'].diff()
     gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
     loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
 
     rs = gain / loss
     rsi = 100 - (100 / (1 + rs))
+    data['RSI'] = rsi
+    return data
 
-    # Создаем DataFrame с индикаторами
-    indicators = pd.DataFrame({
-        'RSI': rsi})
-
-    # Объединяем исходные данные с индикаторами
-    combined_data = pd.concat([data, indicators], axis=1)
-    return combined_data
-
-def download_and_process_data(ticker, period):
-    data = fetch_stock_data(ticker, period)
-    processed_data = add_technical_indicators(data)
-    return data['Close'], processed_data

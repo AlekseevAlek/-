@@ -10,15 +10,16 @@ def main():
     ticker = input("Введите тикер акции (например, «AAPL» для Apple Inc):»")
     period = input("Введите период для данных (например, '1mo' для одного месяца): ")
     filename = 'DataF.csv'
-    indicators = dd.download_and_process_data(ticker, period)
+
     # Fetch stock data
     stock_data = dd.fetch_stock_data(ticker, period)
 
     # Add moving average to the data
     stock_data = dd.add_moving_average(stock_data)
 
-    # Plot the data
-    dplt.create_and_save_plot(stock_data, ticker, period, indicators)
+    dd.add_technical_indicators(stock_data)
+
+    dplt.create_and_save_plot(stock_data, ticker, period)
 
     dd.calculate_and_display_average_price(stock_data)
 
