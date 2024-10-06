@@ -36,13 +36,13 @@
 
 - add_moving_average(data, window_size): Добавляет в DataFrame колонку со скользящим средним, рассчитанным на основе цен закрытия.
 
-- calculate_and_display_average_price(data) вычисляет и выводит среднюю цену закрытия акций за заданный период.
+- calculate_and_display_average_price(data): Вычисляет и выводит среднюю цену закрытия акций за заданный период.
 
-- notify_if_strong_fluctuations(data, threshold) анализирует данные и уведомляет пользователя, если цена акций колебалась более чем на заданный процент за период.
+- notify_if_strong_fluctuations(data, threshold): Анализирует данные и уведомляет пользователя, если цена акций колебалась более чем на заданный процент за период.
 
-- export_data_to_csv(data, filename) позволяет сохранять загруженные данные об акциях в CSV файл.
+- export_data_to_csv(data, filename): Позволяет сохранять загруженные данные об акциях в CSV файл.
 
-- add_technical_indicators(data) добавляет дополнительный технический индикатор RSI.
+- add_technical_indicators(data): Добавляет дополнительный технический индикатор RSI.
 
 2. main.py:
 
