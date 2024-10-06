@@ -1,9 +1,17 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import os
 
-def create_and_save_plot(data, ticker, period, filename=None):
+
+def create_and_save_plot(data, ticker, period, filename=None, style='default'):
     plt.figure(figsize=(10, 6))
+    # Проверяем существование файла стиля
+    custom_style_file = f"{style}.mplstyle"
+    if os.path.exists(custom_style_file):
+        plt.style.use(custom_style_file)
+    else:
+        plt.style.use('default')
 
     if 'Date' not in data:
         if pd.api.types.is_datetime64_any_dtype(data.index):
@@ -27,7 +35,7 @@ def create_and_save_plot(data, ticker, period, filename=None):
     plt.legend()
 
     if filename is None:
-        filename = f"{ticker}_{period}_stock_price_chart.png"
+        filename = f"{ticker}_{period}_stock_price_chart.{style.lower()}.png"
 
-    plt.savefig(filename)
+    plt.savefig(filename, format='png')
     print(f"График сохранен как {filename}")
