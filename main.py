@@ -55,6 +55,8 @@ def main():
 
     dd.add_technical_indicators(stock_data)
 
+    dd.calculate_std(stock_data)
+
     dplt.create_and_save_plot(stock_data, ticker, period_input)
 
     # Использование собственного стиля

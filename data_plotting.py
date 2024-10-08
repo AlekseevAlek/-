@@ -5,6 +5,9 @@ import os
 
 
 def create_and_save_plot(data, ticker, period, filename=None, style='default'):
+    '''Функция создаёт график, отображающий цены закрытия, скользящие средние, RSI, STD. Предоставляет возможность
+     сохранения  графика в файл. '''
+
     plt.figure(figsize=(10, 6))
     # Проверяем существование файла стиля
     custom_style_file = f"{style}.mplstyle"
@@ -19,6 +22,7 @@ def create_and_save_plot(data, ticker, period, filename=None, style='default'):
             plt.plot(dates, data['Close'].values, label='Close Price')
             plt.plot(dates, data['Moving_Average'].values, label='Moving Average')
             plt.plot(dates, data['RSI'].values, label='RSI')
+            plt.plot(dates, data['STD'].values, label='STD')
         else:
             print("Информация о дате отсутствует или не имеет распознаваемого формата.")
             return
@@ -28,6 +32,7 @@ def create_and_save_plot(data, ticker, period, filename=None, style='default'):
         plt.plot(data['Date'], data['Close'], label='Close Price')
         plt.plot(data['Date'], data['Moving_Average'], label='Moving Average')
         plt.plot(data['Date'], data['RSI'], label='RSI')
+        plt.plot(data['Date'], data['STD'], label='STD')
 
     plt.title(f"{ticker} Цена акций с течением времени")
     plt.xlabel("Дата")

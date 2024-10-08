@@ -51,3 +51,10 @@ def add_technical_indicators(data):
     rsi = 100 - (100 / (1 + rs))
     data['RSI'] = rsi
     return data
+
+
+def calculate_std(data, window_size=20):
+    '''Функция добавляет статистический индикатор - стандартное отклонение цены закрытия.'''
+
+    data['STD'] = data['Close'].rolling(window=window_size).std()
+    return data
