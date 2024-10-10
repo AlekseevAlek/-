@@ -44,3 +44,4 @@ def create_and_save_plot(data, ticker, period, filename=None, style='default'):
 
     plt.savefig(filename, format='png')
     print(f"График сохранен как {filename}")
+

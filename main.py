@@ -57,6 +57,8 @@ def main():
 
     dd.calculate_std(stock_data)
 
+    dd.create_interactive_plot(stock_data)
+
     dplt.create_and_save_plot(stock_data, ticker, period_input)
 
     # Использование собственного стиля
