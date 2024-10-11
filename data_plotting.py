@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import os
 
+from main import graph_folder
+
 
 def create_and_save_plot(data, ticker, period, filename=None, style='default'):
     '''Функция создаёт график, отображающий цены закрытия, скользящие средние, RSI, STD. Предоставляет возможность
@@ -39,9 +41,29 @@ def create_and_save_plot(data, ticker, period, filename=None, style='default'):
     plt.ylabel("Цена")
     plt.legend()
 
+    #if filename is None:
+        #filename = f"{ticker}_{period}_stock_price_chart.{style.lower()}.png"
+
+
+
+    #plt.savefig(filename, format='png')
+    #print(f"График сохранен как {filename}")
+
+    # Генерируем имя файла на основе тикера и периода
+    base_filename = f"{ticker}_{period}_stock_price_chart"
+
+    # Если имя файла не указано явно, используем базовое имя
     if filename is None:
-        filename = f"{ticker}_{period}_stock_price_chart.{style.lower()}.png"
+        filename = f"{base_filename}.{style.lower()}.png"
+    else:
+        filename = f"{filename}.{style.lower()}.png"
 
-    plt.savefig(filename, format='png')
-    print(f"График сохранен как {filename}")
+    # Создаем путь для графика в папке graph_folder
+    graph_path = os.path.join(graph_folder, filename)
 
+    # Сохраняем график в отдельную папку
+    plt.savefig(graph_path, format='png')
+    print(f"График сохранен как {graph_path}")
+
+    # Очищаем фигуру после сохранения
+    plt.clf()

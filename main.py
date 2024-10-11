@@ -2,8 +2,11 @@ import data_download as dd
 import data_plotting as dplt
 import pandas as pd
 from datetime import datetime, timedelta
-
-
+import os
+import matplotlib.pyplot as plt
+graph_folder = 'graphs'
+if not os.path.exists(graph_folder):
+    os.makedirs(graph_folder)
 def main():
     global start_date, end_date
     print("Добро пожаловать в инструмент получения и построения графиков биржевых данных.")
